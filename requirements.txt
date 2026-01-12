@@ -9,3 +9,5 @@ python-dotenv
 joblib
 great-expectations
 pytest
+xgboost
+optuna
