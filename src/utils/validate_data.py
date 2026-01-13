@@ -5,7 +5,7 @@ import great_expectations as ge
 from typing import Tuple, List
 
 #validate data function using Great Expectations
-def validate_telco_data(df) -> Tuple[bool, List[str]]:
+def validate_telco_data(df):
 
     print("Starting data validation with Great Expectations...")
     
