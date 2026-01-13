@@ -4,7 +4,7 @@
 import pandas as pd
 
 # preprocessing function
-def preprocess_data(df, target_col):
+def preprocess_data(df, target_col: str = "Churn"):
 
     df.columns = df.columns.str.strip()  # Remove leading/trailing whitespace for headers
     df = df.drop(columns="customerID") # drop ids
