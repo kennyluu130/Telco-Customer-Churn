@@ -58,7 +58,7 @@ def build_features(df, target_col):
         
         # Apply one-hot encoding with drop_first=True
         df = pd.get_dummies(df, columns=multi_cols, drop_first=True)
-        new_features = df.shape[1] - original_shape[1] + len(multi_cols)
+        new_features = df.shape[1] - original_shape[1] + len(multi_cols) #dtypes = int??
         print(f"      ✅ Created {new_features} new features from {len(multi_cols)} categorical columns")
 
     # Convert nullable integers (Int64) to standard integers for XGBoost

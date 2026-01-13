@@ -14,7 +14,7 @@ from data.preprocess import preprocess_data
 from features.build_features import build_features
 
 # config
-DATA_PATH = "C:\Users\kemin\Documents\Projects\Telco-Customer-Churn\data\raw"
+DATA_PATH = r"C:\Users\kemin\Documents\Projects\Telco-Customer-Churn\data\raw\Telco-Customer-Churn.csv"
 TARGET_COL = "Churn"
 
 def main():

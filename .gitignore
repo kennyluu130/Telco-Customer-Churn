@@ -18,3 +18,13 @@ data/*.csv
 
 # VS Code settings
 .vscode/
+
+# big artifacts we don't want in git
+mlruns/
+artifacts/
+data/raw/
+data/processed/
+
+# keep our bundled serving model in the repo
+!src/serving/model/
+!src/serving/model/**
