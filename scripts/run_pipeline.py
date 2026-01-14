@@ -46,7 +46,7 @@ def main(args):
         mlflow.log_param("test_size", args.test_size)
 
         # Data Loading & Validation
-        print("=== 1. Loading data ===")
+        print("\n=== 1. Loading data ===")
         df = load_data(args.input)  # Load raw CSV data with error handling
         print(f"Data loaded: {df.shape[0]} rows, {df.shape[1]} columns")
 
@@ -58,7 +58,7 @@ def main(args):
         if not is_valid:
             # Log validation failures for debugging
             import json
-            mlflow.log_text(json.dumps(failed, indent=2), artifact_file="failed_expectations.json")
+            mlflow.log_text(json.dumps(failed, indent=2), artifact_file="failed_pandera.json")
             raise ValueError(f"Data quality check failed. Issues: {failed}")
         else:
             print("Data validation passed. Logged to MLflow.")
@@ -66,7 +66,7 @@ def main(args):
         # breakpoint()
 
         # Data Preprocessing
-        print("=== 2. Preprocessing data ===")
+        print("\n=== 2. Preprocessing data ===")
         df = preprocess_data(df)  # Basic cleaning
 
         # Save processed dataset for reproducibility and debugging
@@ -76,7 +76,7 @@ def main(args):
         print(f"Processed dataset saved to {processed_path} | Shape: {df.shape}")
 
         # Feature Engineering
-        print("=== 3. Building features ===")
+        print("\n=== 3. Building features ===")
         target = args.target
         if target not in df.columns:
             raise ValueError(f"Target column '{target}' not found in data")
@@ -112,7 +112,7 @@ def main(args):
         print(f"Saved {len(feature_cols)} feature columns for serving consistency")
 
         # Train/Test Split
-        print("=== 4. Splitting data ===")
+        print("\n=== 4. Splitting data ===")
         X = df_enc.drop(columns=[target])  # Feature matrix
         y = df_enc[target]                 # Target vector
         
@@ -132,17 +132,21 @@ def main(args):
         print(f"Class imbalance ratio: {scale_pos_weight:.2f} (applied to positive class)")
 
         # Model Training with Optimized Hyperparameters
-        print("=== 5. Training XGBoost model ===")
+        print("\n=== 5. Training XGBoost model ===")
         
         model = XGBClassifier(
             # Tree structure parameters (OPTIMIZED)
-            n_estimators=301,
-            learning_rate=0.034, 
-            max_depth=7,
+            n_estimators=420,
+            learning_rate=0.12105134838892777, 
+            max_depth=3,
             
             # Regularization parameters
-            subsample=0.95,
-            colsample_bytree=0.98,
+            subsample=0.9946570983423584,
+            colsample_bytree=0.5617518784757857,
+            min_child_weight = 1,
+            gamma=3.2328515123225703, 
+            reg_alpha=4.979554238456605, 
+            reg_lambda=0.5805809284683919,
             
             # Performance parameters
             n_jobs=-1,
@@ -161,7 +165,7 @@ def main(args):
         print(f"Model trained in {train_time:.2f} seconds")
 
         # Model Evaluation 
-        print("=== 6. Evaluating model performance ===")
+        print("\n=== 6. Evaluating model performance ===")
         
         # Generate predictions and track inference time
         t1 = time.time()
@@ -191,7 +195,7 @@ def main(args):
         print(f"   F1 Score: {f1:.3f} | ROC AUC: {roc_auc:.3f}")
 
         # Model Serialization and Logging
-        print("=== 7. Saving model to MLflow ===")
+        print("\n=== 7. Saving model to MLflow ===")
         # ESSENTIAL: Log model in MLflow's standard format for serving
         mlflow.sklearn.log_model(
             model, 
@@ -214,7 +218,7 @@ if __name__ == "__main__":
     p.add_argument("--input", type=str, required=True,
                    help="path to CSV (e.g., data/raw/Telco-Customer-Churn.csv)")
     p.add_argument("--target", type=str, default="Churn")
-    p.add_argument("--threshold", type=float, default=0.35)
+    p.add_argument("--threshold", type=float, default=0.30)
     p.add_argument("--test_size", type=float, default=0.2)
     p.add_argument("--experiment", type=str, default="Telco Churn")
     p.add_argument("--mlflow_uri", type=str, default=None,

@@ -28,6 +28,6 @@ df_processed = build_features(df, target_col="Churn") # features engineering
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True) # save data
 df_processed.to_csv(OUT, index=False)
-print(f"✅ Processed dataset saved to {OUT} | Shape: {df_processed.shape}")
+print(f"Processed dataset saved to {OUT} | Shape: {df_processed.shape}")
 
 ### End

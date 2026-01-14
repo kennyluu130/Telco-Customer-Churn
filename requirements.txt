@@ -16,3 +16,4 @@ posthog
 statsmodels
 lightgbm
 pandera
+gradio
