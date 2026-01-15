@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/kemin/Documents/Projects/Telco-Customer-Churn/mlruns/210432083996589282/models/m-9c85a6c242dd4d92816a9eac0fa568c7/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.14
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.8.1
+model_id: m-9c85a6c242dd4d92816a9eac0fa568c7
+model_size_bytes: 316133
+model_uuid: m-9c85a6c242dd4d92816a9eac0fa568c7
+prompts: null
+run_id: b8b603f487d544f4bb89507c2a098408
+utc_time_created: '2026-01-15 00:38:54.143184'

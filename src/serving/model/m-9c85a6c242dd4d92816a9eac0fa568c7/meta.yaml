@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/kemin/Documents/Projects/Telco-Customer-Churn/mlruns/210432083996589282/models/m-9c85a6c242dd4d92816a9eac0fa568c7/artifacts
+creation_timestamp: 1768437534017
+experiment_id: '210432083996589282'
+last_updated_timestamp: 1768437551050
+model_id: m-9c85a6c242dd4d92816a9eac0fa568c7
+model_type: null
+name: model
+source_run_id: b8b603f487d544f4bb89507c2a098408
+status: 2
+status_message: null

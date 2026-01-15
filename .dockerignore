@@ -1,0 +1,20 @@
+# Ignore data and notebooks
+data/
+notebooks/
+
+# Ignore the virtual environment
+venv/
+.venv/
+env/
+
+# Ignore Python cache
+**/__pycache__/
+*.pyc
+
+# Ignore local git data
+.git/
+.gitignore
+
+# Ignore large datasets if they aren't needed inside the image
+*.csv
+*.ipynb

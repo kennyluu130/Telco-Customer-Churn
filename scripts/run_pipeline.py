@@ -29,6 +29,10 @@ from src.utils.validate_data import validate_telco_data
 def main(args):
     
     ### Main training pipeline function that orchestrates the complete ML workflow.
+
+    # check no active runs are occuring
+    if mlflow.active_run():
+        mlflow.end_run()
     
     
     # MLflow Setup - ESSENTIAL for experiment tracking
@@ -40,6 +44,8 @@ def main(args):
 
     # Start MLflow run - all subsequent logging will be tracked under this run
     with mlflow.start_run():
+   
+
         # Log hyperparameters and configuration 
         mlflow.log_param("model", "xgboost")
         mlflow.log_param("threshold", args.threshold)
@@ -196,7 +202,8 @@ def main(args):
 
         # Model Serialization and Logging
         print("\n=== 7. Saving model to MLflow ===")
-        # ESSENTIAL: Log model in MLflow's standard format for serving
+        
+        # Log model in MLflow's standard format for serving
         mlflow.sklearn.log_model(
             model, 
             artifact_path="model"  # This creates a 'model/' folder in MLflow run artifacts
@@ -226,6 +233,8 @@ if __name__ == "__main__":
 
     args = p.parse_args()
     main(args)
+
+
 
 """
 # Use this below to run the pipeline:
